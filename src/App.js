@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchData } from "./actions/listActions";
 
 function App() {
+  // #7 - use redux on app
+  const list = useSelector((state) => state.list);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {list.data.map((data) => (
+        <div>{data.data}</div>
+      ))}
     </div>
   );
 }
